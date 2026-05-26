@@ -1,12 +1,13 @@
 import { Request, Response, Router } from "express";
+import requireAuth from "../middleware/require.auth";
 
 const router = Router();
 
-router.get("/me", (req: Request, res: Response) => {
+router.get("/me", requireAuth, (req: Request, res: Response) => {
   const authReq = req as any;
   const authUser = authReq.user;
 
-  res.json({
+  return res.json({
     user: authUser,
   });
 });
